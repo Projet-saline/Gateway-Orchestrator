@@ -1,5 +1,14 @@
 const express = require("express");
+const mysql = require('mysql2');
 const router = express.Router();
+
+const db = mysql.createConnection({
+  host: 'mysql_host',
+  user: 'mysql_user',
+  password: 'mysql_password',
+  database: 'mysql_database',
+});
+
 
 
     router.get('/', (req, res) => {
@@ -21,5 +30,18 @@ const router = express.Router();
       }
     })
   });
+
+  /////////// exemple de mode avec sql : 
+  
+  /* 
+  app.get('/users', (req, res) => {
+    db.query('SELECT * FROM users', (error, results) => {
+      if (error) {
+        return res.status(500).json({ message: 'Erreur lors de la récupération des utilisateurs.' });
+      }
+      res.json({ users: results });
+    });
+  });
+  */
 
 module.exports = router;
