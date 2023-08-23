@@ -1,0 +1,16 @@
+name: Orch's CI
+
+on:
+  push:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    container: node:alpine
+
+    steps:
+      - run: node --version
+      - run: npm --version
+      - uses: actions/checkout@v3
+      - run: node app_test.js
