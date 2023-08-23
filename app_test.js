@@ -37,7 +37,6 @@ console.log("call on " + contest);
 axios.get("http://localhost:3000" + contest)
     .then(res =>console.log(res.data));
 
-console.log(server);
 
 server.close((err) => {
     console.log('server closed')
