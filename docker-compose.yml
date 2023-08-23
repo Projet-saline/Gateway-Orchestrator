@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    container_name: Gateway_API
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  db:
+    container_name: Database
+    image: mysql:8.1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: your_db_name
+
+  phpmyadmin:
+    container_name: Database_Admin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
