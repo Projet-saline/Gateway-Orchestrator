@@ -12,7 +12,7 @@ services:
 
   db:
     container_name: Database
-    image: mysql:8.1
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: your_db_name
