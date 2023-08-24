@@ -20,4 +20,4 @@ jobs:
         
     - name: Connexion au VPS et déploiement
       run: |
-        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -p 9106 ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/test_server/orc && git pull origin main && docker-compose down && docker-compose up -d"
+        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -p 9106 ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}
