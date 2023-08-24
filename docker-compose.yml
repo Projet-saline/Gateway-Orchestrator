@@ -16,6 +16,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: your_db_name
+    volumes:
+      - db-data:/var/lib/mysql
+
 
   phpmyadmin:
     container_name: Database_Admin
@@ -27,3 +30,6 @@ services:
       - "8080:80"
     depends_on:
       - db
+
+  volumes:
+    db-data:
