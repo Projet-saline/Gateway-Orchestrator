@@ -19,14 +19,14 @@ jobs:
           sudo apt-get install -y sshpass
 
       - name: Connexion au VPS et déploiement
-    uses: appleboy/ssh-action@v1.0.0
-    with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USERNAME }}
-        key: ${{ secrets.VPS_RSA }}
-        port: ${{ secrets.VPS_PORTS }}
-        script: 
-            cd ~/test_server/Gateway-Orchestrator
-            git pull origin pre-prod 
-            docker-compose down 
-            docker-compose up -d
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+            host: ${{ secrets.VPS_HOST }}
+            username: ${{ secrets.VPS_USERNAME }}
+            key: ${{ secrets.VPS_RSA }}
+            port: ${{ secrets.VPS_PORTS }}
+            script: 
+                cd ~/test_server/Gateway-Orchestrator
+                git pull origin pre-prod 
+                docker-compose down 
+                docker-compose up -d
