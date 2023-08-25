@@ -20,4 +20,4 @@ jobs:
         
     - name: Connexion au VPS et déploiement
       run: |
-        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -p ${{secrets.VPS_PORT}} ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/test/Gateway-Orchestrator && git pull origin pre-prod && docker-compose down && docker-compose up -d"
+        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -p ${{ secrets.VPS_PORT }} ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/test/Gateway-Orchestrator && git pull origin pre-prod && docker-compose down && docker-compose up -d"
