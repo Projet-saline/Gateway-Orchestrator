@@ -20,4 +20,4 @@ jobs:
         
     - name: Connexion au VPS et déploiement
       run: |
-        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh -tt -p 9106 ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}
+        ping ${{ secrets.VPS_HOST }}
