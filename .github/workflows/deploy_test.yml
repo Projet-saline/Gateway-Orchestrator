@@ -25,6 +25,8 @@ jobs:
             username: ${{ secrets.VPS_USERNAME }}
             key: ${{ secrets.VPS_RSA }}
             port: ${{ secrets.VPS_PORTS }}
+            timeout: 60s
+            command_timeout: 15m
             script: 
                 cd ~/test_server/Gateway-Orchestrator
                 git pull origin pre-prod 
