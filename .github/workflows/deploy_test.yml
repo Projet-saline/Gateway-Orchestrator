@@ -16,7 +16,7 @@ jobs:
     - name: Installation des dépendances SSH
       run: |
         sudo apt-get update
-        sudo apt-get install -y sshpass
+        sudo apt install sshpass
         
     - name: Connexion au VPS et déploiement
       run: |
