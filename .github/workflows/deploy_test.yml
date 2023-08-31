@@ -8,16 +8,27 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout du code
-      uses: actions/checkout@v2
-      
-    - name: Installation des dépendances SSH
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y sshpass
-        
-    - name: Connexion au VPS et déploiement
-      run: |
-        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "cd ~/test_server/orc && git pull origin main && docker-compose down && docker-compose up -d"
+      - name: Checkout du code
+        uses: actions/checkout@v2
+
+      - name: Installation des dépendances SSH
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+
+      - name: Connexion au VPS et déploiement
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+            host: ${{ secrets.VPS_HOST }}
+            username: ${{ secrets.VPS_USERNAME }}
+            key: ${{ secrets.VPS_RSA }}
+            port: ${{ secrets.VPS_PORT }}
+            timeout: 60s
+            command_timeout: 15m
+            script: 
+                cd ~/test_server/Gateway-Orchestrator
+                git pull origin pre-prod
+                docker-compose down
+                docker-compose up -d
