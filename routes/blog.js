@@ -1,22 +1,33 @@
-const express = require("express");
+//Libraries
+const express = require('express');
 const mysql = require('mysql');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const moment = require('moment');
+const errorLog = require('../controllers/errorLog.js');
 
+//Connection to database
 const db = mysql.createConnection({
-    host: '172.22.0.3',
+    host: 'localhost',
+    port: '8080',
     user: 'root',
     password: 'root',
     database: 'Saline',
   });
-  
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+//Utilities
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const date = moment().format('yyyy-mm-dd:hh:mm:ss');
+
+
+
+//Routes
 
     router.get('/', (req, res) => {
-        // Faire le axios pour l'appel des blog je vais écrire un JSON générique pour passer les tests à changer à l'avenir 😊
         db.query('SELECT * FROM blog', (err, result) => {
             if (err) {
-                console.log(err);
+                errorLog(err,date);
+                res.status(500).send('Error trying to get all blog');
             }
             res.status(200).send(result);
         });
@@ -26,7 +37,8 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
         const id = req.params.id;
         db.query('SELECT * FROM blog WHERE id = ?', [id], (err, result) => {
             if (err) {
-                console.log(err);
+                errorLog(err,date);
+                res.status(500).send('Error trying to get blog');
             }
             res.status(200).send(result);
         });
@@ -40,7 +52,8 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
         const id_user = req.body.id_user;
         db.query('INSERT INTO blog (name, description, date, image, id_user) VALUES (?,?,?,?,?)', [name, description, date, image, id_user], (err, result) => {
             if (err) {
-                console.log(err);
+                errorLog(err,date);
+                res.status(500).send('Error trying to create blog');
             }
             res.status(201).send(result);
         });
@@ -55,7 +68,8 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
         const id_user = req.body.id_user;
         db.query('UPDATE blog SET name = ?, description = ?, date = ?, image = ?, id_user = ? WHERE id = ?', [name, description, date, image, id_user, id], (err, result) => {
             if (err) {
-                console.log(err);
+                errorLog(err,date);
+                res.status(500).send('Error trying to update blog');
             }
             res.status(202).send(result);
         });
@@ -65,7 +79,8 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
         const id = req.params.id;
         db.query('DELETE FROM blog WHERE id = ?', [id], (err, result) => {
             if (err) {
-                console.log(err);
+                errorLog(err,date);
+                res.status(500).send('Error trying to delete blog');
             }
             res.status(203).send(result);
         });
@@ -75,14 +90,12 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
         const id = req.params.id;
         db.query('SELECT * FROM blog WHERE id_user = ?', [id], (err, result) => {
             if (err) {
-                console.log(err);
+                errorLog(err,date);
+                res.status(500).send('Error trying to get blog');
             }
             res.status(200).send(result);
         });
     });
-
-
-
 
 
 

@@ -9,16 +9,21 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    networks:
+      - gateway-network
 
   db:
     container_name: Database
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: your_db_name
+      MYSQL_DATABASE: Saline
+    ports:
+      - "3306:3306"
+    networks:
+      - gateway-network
     volumes:
       - db-data:/var/lib/mysql
-
 
   phpmyadmin:
     container_name: Database_Admin
@@ -30,6 +35,12 @@ services:
       - "8080:80"
     depends_on:
       - db
+    networks:
+      - gateway-network
+
+networks:
+  gateway-network:
+    driver: bridge
 
 volumes:
   db-data:
