@@ -5,14 +5,15 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const moment = require('moment');
 const errorLog = require('../controllers/errorLog.js');
+require('dotenv').config();
 
 //Connection to database
 const db = mysql.createConnection({
-    host: 'Database',
+    host: process.env.DB_HOST,
     port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'Saline',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
   });
 
 //Utilities

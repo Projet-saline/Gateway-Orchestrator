@@ -1,48 +1,15 @@
 const express = require('express');
 const mysql = require('mysql');
 const router = express.Router();
+require('dotenv').config();
 
 const db = mysql.createConnection({
-  host: 'Database',
+  host: process.env.DB_HOST,
   port: 3306,
-  user: 'root',
-  password: 'root',
-  database: 'Saline',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
 });
 
-
-
-    router.get('/', (req, res) => {
-    // Faire le axios pour l'appel des concours je vais écrire un JSON générique pour passer les tests à changer à l'avenir 😊
-    res.status(200).send({
-      1:{
-        name:'Concours numéro 1',
-        lieu:'Terre',
-        date:'01-01-1900',
-        inscription:'fermée/ouverte',
-        link:'http://www.google.com/'
-      },
-      2:{
-        name:'Concours numéro 2',
-        lieu:'Terre',
-        date:'01-01-1800',
-        inscription:'fermée/ouverte',
-        link:'http://www.google.com/'
-      }
-    })
-  });
-
-  /////////// exemple de mode avec sql : 
-  
-  /* 
-  app.get('/users', (req, res) => {
-    db.query('SELECT * FROM users', (error, results) => {
-      if (error) {
-        return res.status(500).json({ message: 'Erreur lors de la récupération des utilisateurs.' });
-      }
-      res.json({ users: results });
-    });
-  });
-  */
 
 module.exports = router;

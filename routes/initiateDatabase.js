@@ -5,15 +5,16 @@ const router = express.Router();
 const moment = require('moment');
 const data = require('../data.json');
 const errorLog = require('../controllers/errorLog.js');
+require('dotenv').config();
 
 //Create connection to database
 const db = mysql.createConnection({
-    host: 'Database',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'Saline',
-  });
+  host: process.env.DB_HOST,
+  port: 3306,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+});
 
 //Utilities
 const date = moment().format('yyyy-mm-dd:hh:mm:ss');
@@ -23,7 +24,6 @@ const date = moment().format('yyyy-mm-dd:hh:mm:ss');
 
 router.post('/', async (req, res) => {
   try {
-    console.log(data);
     const lessons = data.lessons;
     const user = data.users;
     const post = data.posts;
