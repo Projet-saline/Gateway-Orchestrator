@@ -1,25 +1,14 @@
-//Initiate database with datas
-const express = require('express');
-const mysql = require('mysql');
-const router = express.Router();
-const moment = require('moment');
-const data = require('../data.json');
-const errorLog = require('../controllers/errorLog.js');
-require('dotenv').config();
-
-//Create connection to database
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  port: 3306,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
-
-//Utilities
-const date = moment().format('yyyy-mm-dd:hh:mm:ss');
-
-
+const {
+  express,
+  mysql,
+  router,
+  bodyParser,
+  moment,
+  errorLog,
+  db,
+  urlencodedParser,
+  date
+} = require('../controllers/express-utils.js');
 //Routes
 
 router.post('/', async (req, res) => {
