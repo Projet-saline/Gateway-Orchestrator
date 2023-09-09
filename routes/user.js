@@ -49,3 +49,8 @@ router.post('/',urlencodedParser, (req, res) => {
 });
 
 // Route pour modifier un utilisateur
+// Route pour créer un utilisateur (signup)
+// Route pour supprimer un utilisateur (delete)
+// Route pour se connecter (signin)
+// Route pour se déconnecter (signout)
+// Route pour récupérer le profil de l'utilisateur connecté (currentuser)
