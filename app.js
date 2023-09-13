@@ -14,12 +14,16 @@ const messenger = '/messenger';
 const metrics = '/metrics';
 const initiateDatabase = '/initiate';
 
+const errorHandler = '/error';
+
 const contestsRoute = require('./routes/contests');
 const payRoute = require('./routes/payment');
 const blogRoute = require('./routes/blog');
 const messengerRoute = require('./routes/messenger');
 const metricsRoute = require('./routes/metrics');
 const initiateDatabaseRoute = require('./routes/initiateDatabase');
+
+const errorHandler = require('./middlewares/error-handler');
 
 app.use(express.json());
 
@@ -29,6 +33,8 @@ app.use(blog,blogRoute);
 app.use(messenger,messengerRoute);
 app.use(metrics,metricsRoute);
 app.use(initiateDatabase,initiateDatabaseRoute);
+
+app.use(errorHandler);
 
 
 app.listen(port, () => {
