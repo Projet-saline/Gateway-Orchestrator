@@ -8,6 +8,7 @@ const port = 3000;
 const app = express();
 
 const contest = '/contest';
+const news = '/news';
 const pay = '/pay';
 const blog = '/blog';
 const messenger = '/messenger';
@@ -15,6 +16,7 @@ const metrics = '/metrics';
 const initiateDatabase = '/initiate';
 
 const contestsRoute = require('./routes/contests');
+const newsRoute = require('./routes/news');
 const payRoute = require('./routes/payment');
 const blogRoute = require('./routes/blog');
 const messengerRoute = require('./routes/messenger');
@@ -24,6 +26,7 @@ const initiateDatabaseRoute = require('./routes/initiateDatabase');
 app.use(express.json());
 
 app.use(contest,contestsRoute);
+app.use(news,newsRoute);
 app.use(pay,payRoute);
 app.use(blog,blogRoute);
 app.use(messenger,messengerRoute);

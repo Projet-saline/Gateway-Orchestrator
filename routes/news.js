@@ -9,3 +9,32 @@ const {
     urlencodedParser,
     date
   } = require('../controllers/express-utils.js');
+
+
+  //route by id
+
+  router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    db.query('SELECT * FROM news WHERE id = ?', [id], (err, result) => {
+        if (err) {
+            errorLog(err,date);
+            res.status(500).send('Error trying to get news');
+        }
+        res.status(200).send(result);
+    });
+});
+
+//route all news
+
+router.get('/', (req, res) => {
+    db.query('SELECT * FROM news', (err, result) => {
+        if (err) {
+            errorLog(err,date);
+            res.status(500).send('Error trying to get all news');
+        }
+        res.status(200).send(result);
+    });
+});
+
+module.exports = router;
+

@@ -4,7 +4,6 @@ const mysql = require('mysql');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const moment = require('moment');
-const errorLog = require('../controllers/errorLog.js');
 require('dotenv').config();
 
 // Connection to database
@@ -15,6 +14,11 @@ const db = mysql.createConnection({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
 });
+
+const errorLog = (err,date) => {
+    console.log(date + ' | error :' + err.code);
+};
+
 
 // Utilities
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
