@@ -1,62 +1,69 @@
 import { Table, Model, Column, DataType, CreatedAt, UpdatedAt } from "sequelize-typescript";
 
 @Table({
-    timestamps: true,
+    timestamps: false,
     tableName: 'users',
-    modelName: 'User'
 })
 
 class User extends Model {
     @Column({
         primaryKey: true,
-        type: DataType.UUID,
+        type: DataType.INTEGER.UNSIGNED,
         autoIncrement: true,
         allowNull: false,
-        defaultValue: DataType.UUIDV4
+        // defaultValue: DataType.UUIDV4
     })
-    id!: number;
+    declare idUser: number;
 
     @Column({
         type: DataType.STRING,
-        allowNull: false
+        allowNull: false,
     })
-    username!: string;
+    declare username: string;
 
     @Column({
         type: DataType.STRING,
-        allowNull: false
+        allowNull: false,
     })
-    email!: string;
+    declare email: string;
 
     @Column({
         type: DataType.STRING,
-        allowNull: false
+        allowNull: false,
     })
-    password!: string;
+    declare password: string;
 
-    @Column({
-        type: DataType.STRING,
-        allowNull: false
-    })
-    role!: string;
-
-    @Column({
-        type: DataType.BOOLEAN,
-        allowNull: false
-    })
-    is_premium!: boolean;
-
-    @Column({
-        type: DataType.BOOLEAN,
-        allowNull: false
-    })
-    is_admin!: boolean;
-
-    @CreatedAt
-    created_at!: Date;
-
-    @UpdatedAt
-    updated_at!: Date;
+    // @Column({
+    //     type: DataType.STRING,
+    //     allowNull: false
+    // })
+    // role!: string;
+    //
+    // @Column({
+    //     type: DataType.BOOLEAN,
+    //     allowNull: false
+    // })
+    // is_premium!: boolean;
+    //
+    // @Column({
+    //     type: DataType.BOOLEAN,
+    //     allowNull: false
+    // })
+    // is_admin!: boolean;
+    //
+    // @CreatedAt
+    // created_at!: Date;
+    //
+    // @UpdatedAt
+    // updated_at!: Date;
 }
+
+// User.init({
+//     id: {
+//         type: DataTypes.INTEGER,
+//         autoIncrement: true,
+//         primaryKey: true
+//     }
+// }, { sequelize });
 
 export default User;
