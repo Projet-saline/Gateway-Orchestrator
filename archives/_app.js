@@ -20,17 +20,17 @@ const signout = '/signout';
 const currentuser = '/currentuser';
 const errorHandler = '/error';
 
-const contestsRoute = require('../src/routes/contests');
-const payRoute = require('../src/routes/payment');
-const blogRoute = require('../src/routes/blog');
-const messengerRoute = require('../src/routes/messenger');
-const metricsRoute = require('../src/routes/metrics');
-const initiateDatabaseRoute = require('../src/routes/initiateDatabase');
+const contestsRoute = require('./contests');
+const payRoute = require('./payment');
+const blogRoute = require('./blog');
+const messengerRoute = require('./messenger');
+const metricsRoute = require('./metrics');
+const initiateDatabaseRoute = require('./initiateDatabase');
 
-const signupRoute = require('../src/routes/signup');
-const signinRoute = require('../src/routes/signin');
-const signoutRoute = require('../src/routes/signout');
-const currentuserRoute = require('../src/routes/current-user');
+const signupRoute = require('../src/routes/signupRoute');
+const signinRoute = require('../src/routes/signinRoute');
+const signoutRoute = require('../src/routes/signoutRoute');
+const currentuserRoute = require('../src/routes/current-userRoute');
 const errorHandlerRoute = require('../src/middlewares/error-handler');
 
 _app.use(express.json());

@@ -8,6 +8,6 @@ const {
   db,
   urlencodedParser,
   date
-} = require('../controllers/express-utils.js');
+} = require('./express-utils.js');
 
 module.exports = router;

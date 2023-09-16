@@ -13,11 +13,11 @@ const blog = "/blog";
 const messenger = "/messenger";
 const metrics = "/metrics";
 
-const contestsRoute = require('./src/routes/contests');
-const payRoute = require('./src/routes/payment');
-const blogRoute = require('./src/routes/blog');
-const messengerRoute = require('./src/routes/messenger');
-const metricsRoute = require('./src/routes/metrics');
+const contestsRoute = require('./archives/contests');
+const payRoute = require('./archives/payment');
+const blogRoute = require('./archives/blog');
+const messengerRoute = require('./archives/messenger');
+const metricsRoute = require('./archives/metrics');
 
 
 const server = app.listen(port, () => {

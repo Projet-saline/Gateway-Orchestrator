@@ -1,16 +1,17 @@
 import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
+import dotenv from "dotenv";
 
-const PORT = 3000;
-
-import { currentUserRouter } from './routes/current-user';
-import { signinRouter } from './routes/signin';
-import { signoutRouter } from './routes/signout';
-import { signupRouter } from './routes/signup';
+import { currentUserRouter } from './routes/current-userRoute';
+import { signinRouter } from './routes/signinRoute';
+import { signoutRouter } from './routes/signoutRoute';
+import { signupRouter } from './routes/signupRoute';
+// import { userRouter } from './routes/user';
 
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
+
 
 const app = express();
 app.use(json());
@@ -19,6 +20,7 @@ app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
+// app.use(userRouter);
 
 app.all('*', async (req, res) => {
     throw new NotFoundError();
@@ -26,6 +28,9 @@ app.all('*', async (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(3000, () => {
-    console.log(`Server Gateway listen on port : ${PORT} !!`);
+
+dotenv.config();
+
+app.listen(process.env.APP_PORT, () => {
+    console.log(`Server Gateway listen on port : ${process.env.APP_PORT} !!`);
 });
