@@ -1,68 +1,62 @@
-import connection from "../config/database";
-// import sequelize from "sequelize";
-import { Table, Model, Column, DataType } from "sequelize-typescript";
-
-// const { DataTypes } = sequelize;
+import { Table, Model, Column, DataType, CreatedAt, UpdatedAt } from "sequelize-typescript";
 
 @Table({
-    timestamps: false,
-    tableName: 'users'
+    timestamps: true,
+    tableName: 'users',
+    modelName: 'User'
 })
 
-export class User extends Model {
+class User extends Model {
     @Column({
-        type: DataType.INTEGER.UNSIGNED,
         primaryKey: true,
+        type: DataType.UUID,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
+        defaultValue: DataType.UUIDV4
     })
     id!: number;
 
     @Column({
-        type: DataType.STRING(255),
-        allowNull: false,
-        unique: true
-    })
-    email!: string;
-
-    @Column({
-        type: DataType.STRING(255),
-        allowNull: false,
-        unique: true
+        type: DataType.STRING,
+        allowNull: false
     })
     username!: string;
 
     @Column({
-        type: DataType.STRING(255),
+        type: DataType.STRING,
+        allowNull: false
+    })
+    email!: string;
+
+    @Column({
+        type: DataType.STRING,
         allowNull: false
     })
     password!: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false
+    })
+    role!: string;
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false
+    })
+    is_premium!: boolean;
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false
+    })
+    is_admin!: boolean;
+
+    @CreatedAt
+    created_at!: Date;
+
+    @UpdatedAt
+    updated_at!: Date;
 }
 
-// Sans sequelize-typescript, avec sequelize:
-// const User = connection.define('user', {
-//     id: {
-//         type: DataTypes.INTEGER.UNSIGNED,
-//         primaryKey: true,
-//         autoIncrement: true,
-//         allowNull: false
-//     },
-//     email: {
-//         type: DataTypes.STRING(255),
-//         allowNull: false,
-//         unique: true
-//     },
-//     username: {
-//         type: DataTypes.STRING(255),
-//         allowNull: false,
-//         unique: true
-//     },
-//     password: {
-//         // Password doit être un hash
-//         type: DataTypes.STRING(255),
-//         allowNull: false
-//     }
-// });
-//
-// export default User;
-
+export default User;

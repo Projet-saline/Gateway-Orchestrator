@@ -1,10 +1,44 @@
-import { Sequelize } from 'sequelize';
-import dotenv from "dotenv";
+import { Sequelize } from 'sequelize-typescript';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-export default new Sequelize(process.env.DB_NAME || 'Saline', process.env.DB_USER || 'root', process.env.DB_PASSWORD || 'root', {
+// Config base de données distante :
+// const sequelize = new Sequelize({
+//     database: process.env.DB_NAME,
+//     dialect: 'mysql',
+//     username: process.env.DB_USER,
+//     password: process.env.DB_PASS,
+//     host: process.env.DB_HOST,
+//     port: Number(process.env.DB_PORT) || 3306,
+//     models: [__dirname + '/models']
+// });
+
+// console.log({
+//     database: process.env.DB_NAME,
+//     username: process.env.DB_USER,
+//     password: process.env.DB_PASS,
+//     host: process.env.DB_HOST,
+//     port: process.env.DB_PORT
+// })
+
+// Config base de données locale :
+const sequelize = new Sequelize({
+    database: process.env.DB_LOCAL_NAME,
     dialect: 'mysql',
-    host: process.env.DB_HOST || 'Database',
-    port: Number(process.env.DB_PORT) || 3306,
+    username: process.env.DB_LOCAL_USER,
+    password: process.env.DB_LOCAL_PASS,
+    host: process.env.DB_LOCAL_HOST,
+    port: Number(process.env.DB_LOCAL_PORT) || 8889,
+    models: [__dirname + '/models']
 });
+
+console.log({
+    database: process.env.DB_LOCAL_NAME,
+    username: process.env.DB_LOCAL_USER,
+    password: process.env.DB_LOCAL_PASS,
+    host: process.env.DB_LOCAL_HOST,
+    port: process.env.DB_LOCAL_PORT
+})
+
+export default sequelize;

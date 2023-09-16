@@ -3,11 +3,11 @@ import { getAll, getOne, createOne, updateOne, deleteOne } from "../controllers/
 
 const router = express.Router();
 
-router.get('/getAll', getAll);
-router.get('getOne/:id', getOne)
-router.post('createOne/:id', createOne);
-router.put('update/:id', updateOne);
-router.delete('delete/:id', deleteOne);
+router.get('/api/getAll', getAll);
+router.get('/api/getOne/:id', getOne)
+router.post('/api/createOne/:id', createOne);
+router.put('/api/update/:id', updateOne);
+router.delete('/api/delete/:id', deleteOne);
 
 export { router as userRouter };
 

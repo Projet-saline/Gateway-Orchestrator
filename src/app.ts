@@ -1,7 +1,7 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import 'express-async-errors';
-import { json } from 'body-parser';
-import dotenv from "dotenv";
+import { json, urlencoded } from 'body-parser';
+import * as dotenv from 'dotenv';
 
 import { currentUserRouter } from './routes/current-userRoute';
 import { signinRouter } from './routes/signinRoute';
@@ -17,13 +17,15 @@ import database from "./config/database";
 const app = express();
 app.use(json());
 
+app.use(urlencoded({ extended: true }));
+
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
 app.use(userRouter);
 
-app.all('*', async (req, res) => {
+app.all('*', async (req: Request, res: Response) => {
     throw new NotFoundError();
 });
 
