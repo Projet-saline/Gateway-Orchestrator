@@ -1,11 +1,13 @@
 'use strict';
 
 const express = require('express');
+const app = express();
 const axios = require('axios');
+const cors = require('cors');
 
 
 const port = 3000;
-const app = express();
+app.use(cors());
 
 const contest = '/contest';
 const news = '/news';
@@ -24,6 +26,7 @@ const metricsRoute = require('./routes/metrics');
 const initiateDatabaseRoute = require('./routes/initiateDatabase');
 
 app.use(express.json());
+
 
 app.use(contest,contestsRoute);
 app.use(news,newsRoute);

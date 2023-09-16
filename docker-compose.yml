@@ -1,18 +1,21 @@
 version: '3'
+
 services:
-  app:
-    container_name: Gateway_API
+  gateway:
+    container_name: gateway
     build:
       context: .
       dockerfile: dockerfile
     ports:
       - "${APP_PORT}:${APP_PORT}"
+    expose:
+      - "${APP_PORT}"
     depends_on:
       - db
     env_file:
       - .env
     networks:
-      - gateway-network
+      - common-network
 
   db:
     container_name: Database
@@ -23,7 +26,7 @@ services:
     ports:
       - "${DB_PORT}:${DB_PORT}"
     networks:
-      - gateway-network
+      - common-network
     env_file:
       - .env
     volumes:
@@ -42,11 +45,12 @@ services:
     env_file:
       - .env
     networks:
-      - gateway-network
+      - common-network
 
 networks:
-  gateway-network:
-    driver: bridge
+  common-network:
+    external:
+      name: common-network
 
 volumes:
   db-data:
