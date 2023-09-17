@@ -5,6 +5,7 @@ import { Table, Model, Column, DataType, CreatedAt, UpdatedAt } from "sequelize-
     timestamps: true
 })
 
+// Le modèle User est une classe qui va représenter la table users dans la base de données.
 class User extends Model {
     @Column({
         primaryKey: true,
