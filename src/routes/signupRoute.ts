@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { RequestValidationError } from '../errors/request-validation-error';
 import User from '../models/user';
+import { BadRequestError } from '../errors/bad-request-error';
 // import { where } from "sequelize";
 
 const router = express.Router();
@@ -9,15 +10,21 @@ const router = express.Router();
 router.post('/api/users/signup', [
         body('email')
             .isEmail()
-            .withMessage('Votre email doit être valide'),
+            .withMessage('Votre email doit être valide')
+            .notEmpty()
+            .withMessage('Votre email ne peut pas être vide'),
         body('password')
             .trim()
             .isLength({ min: 4, max: 20 })
-            .withMessage('Votre mot de passe doit être compris entre 4 et 20 caractères'),
+            .withMessage('Votre mot de passe doit être compris entre 4 et 20 caractères')
+            .notEmpty()
+            .withMessage('Votre mot de passe ne peut pas être vide'),
         body('username')
             .trim()
             .isLength({ min: 2, max: 20 })
             .withMessage('Votre nom d\'utilisateur doit être compris entre 2 et 20 caractères')
+            .notEmpty()
+            .withMessage('Votre nom d\'utilisateur ne peut pas être vide')
     ],
     async (req : Request, res: Response) => {
         const errors = validationResult(req);
@@ -26,16 +33,15 @@ router.post('/api/users/signup', [
             throw new RequestValidationError(errors.array());
         }
 
-        const { email, password } = req.body;
+        const { email, password, username } = req.body;
 
         const existingUser = await User.findOne({ where: { email }});
 
         if (existingUser) {
-            console.log('Email utilisé');
-            return res.send({});
+            throw new BadRequestError('Email déjà utilisé');
         }
 
-        const user = User.build({email, password});
+        const user = User.build({email, password, username});
         await user.save();
 
         res.status(201).send(user);
