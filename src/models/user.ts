@@ -1,8 +1,8 @@
 import { Table, Model, Column, DataType, CreatedAt, UpdatedAt } from "sequelize-typescript";
 
 @Table({
-    timestamps: false,
     tableName: 'users',
+    timestamps: true
 })
 
 class User extends Model {
@@ -33,37 +33,32 @@ class User extends Model {
     })
     declare password: string;
 
-    // @Column({
-    //     type: DataType.STRING,
-    //     allowNull: false
-    // })
-    // role!: string;
-    //
-    // @Column({
-    //     type: DataType.BOOLEAN,
-    //     allowNull: false
-    // })
-    // is_premium!: boolean;
-    //
-    // @Column({
-    //     type: DataType.BOOLEAN,
-    //     allowNull: false
-    // })
-    // is_admin!: boolean;
-    //
-    // @CreatedAt
-    // created_at!: Date;
-    //
-    // @UpdatedAt
-    // updated_at!: Date;
-}
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+        defaultValue: 'student'
+    })
+    declare role: string;
 
-// User.init({
-//     id: {
-//         type: DataTypes.INTEGER,
-//         autoIncrement: true,
-//         primaryKey: true
-//     }
-// }, { sequelize });
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    })
+    declare is_premium: boolean;
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    })
+    declare is_admin: boolean;
+
+    @CreatedAt
+    declare created_at: true;
+
+    @UpdatedAt
+    declare updated_at: 'updateTimestamp';
+}
 
 export default User;

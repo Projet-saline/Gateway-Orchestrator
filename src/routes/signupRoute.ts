@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import { RequestValidationError } from '../errors/request-validation-error';
+import User from '../models/user';
+// import { where } from "sequelize";
 
 const router = express.Router();
 
@@ -11,7 +13,11 @@ router.post('/api/users/signup', [
         body('password')
             .trim()
             .isLength({ min: 4, max: 20 })
-            .withMessage('Votre mot de passe doit être compris entre 4 et 20 caractères')
+            .withMessage('Votre mot de passe doit être compris entre 4 et 20 caractères'),
+        body('username')
+            .trim()
+            .isLength({ min: 2, max: 20 })
+            .withMessage('Votre nom d\'utilisateur doit être compris entre 2 et 20 caractères')
     ],
     async (req : Request, res: Response) => {
         const errors = validationResult(req);
@@ -20,10 +26,19 @@ router.post('/api/users/signup', [
             throw new RequestValidationError(errors.array());
         }
 
-        const { email } = req.body;
+        const { email, password } = req.body;
 
-        console.log('Création d\'un utilisateur...');
-        res.send({});
+        const existingUser = await User.findOne({ where: { email }});
+
+        if (existingUser) {
+            console.log('Email utilisé');
+            return res.send({});
+        }
+
+        const user = User.build({email, password});
+        await user.save();
+
+        res.status(201).send(user);
     });
 
 // Il y a plusieurs façons de valider les données d'un utilisateur.

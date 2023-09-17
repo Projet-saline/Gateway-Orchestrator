@@ -26,12 +26,13 @@ const getOne : RequestHandler = async (req, res) => {
         .json({message: "Utilisateur", data: oneUser});
 };
 
-const createOne : RequestHandler = async (req, res) => {
-    const createdUser = await User.create(req.body);
-    return res
-        .status(201)
-        .json({message: "Utilisateur céé avec succès !", data: createdUser});
-};
+// Peut-être en doublon avec signupRoute.ts
+// const createOne : RequestHandler = async (req, res) => {
+//     const createdUser = await User.create(req.body);
+//     return res
+//         .status(201)
+//         .json({message: "Utilisateur créé avec succès !", data: createdUser});
+// };
 
 const updateOne : RequestHandler = async (req, res) => {
     const {id } = req.params;
@@ -51,4 +52,5 @@ const deleteOne : RequestHandler = async (req, res) => {
         .json({message: "Utilisateur supprimé avec succès !", data: deletedUser});
 };
 
-export { getAll, getOne, createOne, updateOne, deleteOne };
+// Doublon, j'ai retiré createOne de la liste des routes
+export { getAll, getOne, updateOne, deleteOne };
