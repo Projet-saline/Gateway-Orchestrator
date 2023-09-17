@@ -25,6 +25,19 @@ const {
     });
 });
 
+//the last 10 articles
+router.get("/last", (req, res) => {
+    db.query("SELECT * FROM news ORDER BY id DESC LIMIT 10", (err, result) => {
+        if (err) {
+            errorLog(err,date);
+            res.status(500).json({ error: "Error trying to get news" });
+        }
+        // return data in a json
+        res.status(200).send(result);
+    });
+});
+
+
 
 
 
